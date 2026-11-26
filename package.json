@@ -6,7 +6,8 @@
     "node": ">=22.12.0"
   },
   "scripts": {
-    "dev": "vite"
+    "dev": "vite",
+    "test": "node --test"
   },
   "dependencies": {
     "chart.js": "^4.6.1",

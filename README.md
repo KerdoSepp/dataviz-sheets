@@ -24,6 +24,21 @@ Each lesson is about 90 minutes. The charts share one API request per page load.
 | [3. Chart screen time](lessons/03-screen-time/README.md) | Add a screen-time line chart below the steps chart | [Walkthrough](lessons/03-screen-time/walkthrough.md) |
 | [4. Chart every participant](lessons/04-all-participants/README.md) | Add steps and screen-time comparisons using every configured tab | [Walkthrough](lessons/04-all-participants/walkthrough.md) |
 | [5. Calculate class totals and averages](lessons/05-class-summary/README.md) | Chart the daily total and mean steps per reporting participant | [Walkthrough](lessons/05-class-summary/walkthrough.md) |
+| [6. Independent data visualization](https://github.com/kuressaareametikool/dataviz-sheets/tree/main/lessons/06-independent-dataviz) | Investigate completeness of steps and screen-time records | See the project below |
+
+## Independent project: how complete are our activity records?
+
+Three questions considered were whether steps relate to screen time on paired days, whether activity differs between weekdays and weekends, and how complete the two measurement series are. This project chooses completeness because gaps affect how confidently we can compare participants and dates.
+
+The lesson 6 section follows the earlier charts and uses the same plain headings, canvases, and `draw()` helper. It has a short summary, a bar chart comparing the percentage of available step and screen-time records, a line chart showing daily reporting percentages, and a short interpretation.
+
+The calculation uses `steps_count`, `screen_total_min`, and their dates. `summarizeCoverage()` in `completeness.js` counts numeric readings over every calendar day in the workbook period. Coverage = valid readings ÷ (configured participants × days) × 100. It also counts how often both readings exist for the same participant and day. Recorded zeros count; missing rows, blank cells, text, and non-finite values do not. Invalid or missing dates are excluded. Empty or future dates within the workbook period remain in the denominator. Duplicate dates use the last entry, matching the participant comparison charts. All views share the original API request.
+
+Findings are calculated from the current response and displayed below the charts. During verification, the configured workbook had 11 participants over 15 dates (2026-11-13 through 2026-11-27): 129 of 165 possible step records (78.2%), 120 screen-time records (72.7%), and 116 paired records. These are a dated check; edits to the workbook change the page. Coverage measures availability and cannot explain why data is missing.
+
+For a manual check, count numeric cells for one date across the configured tabs and divide by the number of participants. At verification, 2026-11-13 had 10 step readings out of 11 participants (90.9%); compare this with the daily chart and recount if the workbook has changed. `npm test` checks the calculations, chart data, empty responses, and API errors using synthetic data.
+
+AI reflection: Codex selected the completeness question, implemented the calculations and interface, and added automated checks. It also read aggregate counts from the configured workbook to verify a result. The implementation adds coverage and same-day pairing beyond the previous lessons, and keeps zeros distinct from missing records. The student should review and explain `summarizeCoverage()` in their own words; partner feedback and the 3–5 minute presentation remain classroom activities.
 
 ## For the instructor
 
